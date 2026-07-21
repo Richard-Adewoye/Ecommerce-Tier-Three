@@ -1,0 +1,6 @@
+{
+  "name": "Nouveau Supermarket",
+  "description": "An enterprise-grade, high-converting supermarket platform styled after premium editorial brands, featuring deep customer account management, real-time logistics tracking, PWA fallbacks, and an executive Admin Dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
