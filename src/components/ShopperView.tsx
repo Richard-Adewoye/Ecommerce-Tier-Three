@@ -113,7 +113,16 @@ export default function ShopperView({
     if (savedCart) setCart(JSON.parse(savedCart));
     if (savedWishlist) setWishlist(JSON.parse(savedWishlist));
     if (savedRecent) setRecentlyViewed(JSON.parse(savedRecent));
-    if (savedAddresses) setAddressBook(JSON.parse(savedAddresses));
+    if (savedAddresses) {
+      const parsedAddrs = JSON.parse(savedAddresses);
+      const isStale = parsedAddrs.some((a: any) => a.state === 'Lagos State' || a.fullName === 'Richard Adewoye');
+      if (isStale) {
+        setAddressBook(INITIAL_ADDRESSES);
+        localStorage.setItem('nouveau-addresses', JSON.stringify(INITIAL_ADDRESSES));
+      } else {
+        setAddressBook(parsedAddrs);
+      }
+    }
 
     // Show promotional popup once per session if configured active
     if (promoPopup.active) {
@@ -314,7 +323,7 @@ export default function ShopperView({
       total: grandTotal,
       status: 'Placed',
       address: selectedAddress,
-      deliveryZone: selectedAddress.city.includes('Lekki') ? 'Lekki Phase 1 (Lagos)' : 'Victoria Island (Lagos)',
+      deliveryZone: selectedAddress.city.includes('Jericho') ? 'Jericho (Ibadan, Oyo State)' : 'Bodija (Ibadan, Oyo State)',
       paymentMethod,
       couponCode: activeCoupon || undefined
     };
@@ -324,7 +333,7 @@ export default function ShopperView({
 
     // Update customer spending history
     setCustomers(prev => prev.map(c => {
-      if (c.email === "richardadewoye031@gmail.com") {
+      if (c.email === "ayodavid@gmail.com" || c.name === "Ayo David") {
         return {
           ...c,
           totalSpent: c.totalSpent + grandTotal,
@@ -377,7 +386,7 @@ export default function ShopperView({
       phone: newAddressForm.phone,
       street: newAddressForm.street,
       city: newAddressForm.city,
-      state: "Lagos State",
+      state: "Oyo State",
       isDefault: addressBook.length === 0
     };
 
@@ -396,7 +405,7 @@ export default function ShopperView({
       <div className="bg-stone-900 text-stone-100 text-[10px] md:text-xs py-2 px-4 flex flex-col md:flex-row md:items-center justify-between border-b border-stone-800 tracking-wider">
         <div className="flex items-center justify-center gap-2 font-mono uppercase text-stone-400">
           <Clock className="w-3 h-3 text-amber-500" />
-          <span>Lagos Island Express: Organic Cold-chain Grocery Hand delivery within 45 mins</span>
+          <span>Ibadan Express: Organic Cold-chain Grocery Hand delivery within 45 mins</span>
         </div>
         <div className="hidden md:flex items-center gap-6 text-stone-300 font-serif">
           <span>Our Services</span>
@@ -466,7 +475,7 @@ export default function ShopperView({
               title="Shopper Account Portal"
             >
               <User className="w-5 h-5" />
-              <span className="text-[11px] font-mono font-semibold hidden sm:inline uppercase tracking-wider">Richard</span>
+              <span className="text-[11px] font-mono font-semibold hidden sm:inline uppercase tracking-wider">Ayo</span>
             </button>
 
             {/* Wishlist Heart */}
@@ -546,10 +555,10 @@ export default function ShopperView({
               <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 w-full">
                 <div className="max-w-2xl space-y-6">
                   <span className="text-[10px] md:text-xs text-amber-400 font-mono tracking-widest uppercase">Premium Curations</span>
-                  <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-extrabold tracking-tight leading-none text-stone-100">
+                  <h1 className="text-4xl sm:text-5xl md:text-6xl font-heading font-extrabold tracking-tight leading-none text-stone-100">
                     {bannerSettings.title}
                   </h1>
-                  <p className="text-sm sm:text-base md:text-lg text-stone-300 font-serif max-w-lg leading-relaxed">
+                  <p className="text-sm sm:text-base md:text-lg text-stone-300 font-sans max-w-lg leading-relaxed">
                     {bannerSettings.subtitle}
                   </p>
                   <div className="pt-4 flex flex-wrap gap-4">
@@ -558,7 +567,7 @@ export default function ShopperView({
                         setSelectedCategory('All');
                         setActiveScreen('shop');
                       }}
-                      className="bg-amber-500 hover:bg-amber-400 text-stone-950 font-serif font-bold px-7 py-3 rounded text-sm tracking-wider uppercase transition flex items-center gap-2"
+                      className="bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-bold px-7 py-3 rounded text-sm tracking-wider uppercase transition flex items-center gap-2"
                     >
                       <span>Explore Baskets</span>
                       <ArrowRight className="w-4 h-4" />
@@ -568,7 +577,7 @@ export default function ShopperView({
                         setSelectedCategory('Produce');
                         setActiveScreen('shop');
                       }}
-                      className="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-serif font-semibold px-6 py-3 rounded text-sm tracking-wider uppercase transition"
+                      className="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-heading font-semibold px-6 py-3 rounded text-sm tracking-wider uppercase transition"
                     >
                       Fresh Organic Produce
                     </button>
@@ -589,23 +598,23 @@ export default function ShopperView({
                     <Sparkles className="w-3 h-3" />
                     <span>Limited Time Flash Sale</span>
                   </div>
-                  <h2 className="text-2xl sm:text-3xl font-serif font-semibold">Gourmet Deals Ticking Away</h2>
-                  <p className="text-xs sm:text-sm text-rose-200">
-                    Up to 45% off on cold-pressed extra-virgin pantry items, organic Jos plateau honey, and fine sourdough baking. Only while supplies last.
+                  <h2 className="text-2xl sm:text-3xl font-heading font-bold">Gourmet Deals Ticking Away</h2>
+                  <p className="text-xs sm:text-sm text-rose-200 font-sans">
+                    Up to 45% off on cold-pressed extra-virgin pantry items, organic Oyo valley honey, and fine sourdough baking. Only while supplies last.
                   </p>
                 </div>
 
                 <div className="flex flex-col sm:flex-row items-center gap-6 relative z-10">
                   <div className="text-center bg-stone-950 border border-rose-900 px-5 py-3 rounded-xl min-w-[150px] shadow-lg">
                     <span className="text-[10px] text-stone-400 uppercase tracking-widest font-mono">Ends In</span>
-                    <div className="text-xl sm:text-2xl font-mono font-bold text-amber-500 tracking-wider mt-0.5">{timerString}</div>
+                    <div className="text-xl sm:text-2xl font-mono font-bold text-amber-500 tracking-wider mt-0.5 tabular-nums">{timerString}</div>
                   </div>
                   <button
                     onClick={() => {
                       setSelectedCategory('All');
                       setActiveScreen('shop');
                     }}
-                    className="bg-white text-rose-950 hover:bg-rose-100 font-serif font-bold text-xs sm:text-sm px-6 py-3.5 rounded-lg tracking-wider uppercase transition shadow-md w-full sm:w-auto"
+                    className="bg-white text-rose-950 hover:bg-rose-100 font-heading font-bold text-xs sm:text-sm px-6 py-3.5 rounded-lg tracking-wider uppercase transition shadow-md w-full sm:w-auto"
                   >
                     Shop Flash Deals
                   </button>
@@ -619,8 +628,8 @@ export default function ShopperView({
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-stone-200 pb-5">
               <div>
                 <span className="text-xs text-amber-600 font-mono tracking-widest uppercase">Handpicked Favorites</span>
-                <h2 className="text-3xl font-serif font-semibold mt-1 text-stone-950">Shop Our Bestsellers</h2>
-                <p className="text-stone-500 text-sm mt-1">Gourmet staples vetted by fine-dining chefs and households across Lagos island.</p>
+                <h2 className="text-3xl font-heading font-bold mt-1 text-stone-950">Shop Our Bestsellers</h2>
+                <p className="text-stone-500 text-sm mt-1">Gourmet staples vetted by fine-dining chefs and households across Ibadan, Oyo State.</p>
               </div>
               <button
                 onClick={() => {
@@ -680,7 +689,7 @@ export default function ShopperView({
                       {/* Stock level warn */}
                       {p.stock === 0 ? (
                         <div className="absolute inset-0 bg-stone-950/60 backdrop-blur-[1px] flex items-center justify-center">
-                          <span className="text-white text-xs font-serif font-bold uppercase tracking-wider bg-rose-600 px-3 py-1.5 rounded shadow">
+                          <span className="text-white text-xs font-heading font-bold uppercase tracking-wider bg-rose-600 px-3 py-1.5 rounded shadow">
                             Out of Stock
                           </span>
                         </div>
@@ -695,7 +704,7 @@ export default function ShopperView({
                     <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
                       <div className="space-y-1.5">
                         <span className="text-[10px] text-stone-400 font-mono uppercase block">{p.category}</span>
-                        <h3 className="font-serif font-medium text-stone-900 group-hover:text-amber-600 transition text-sm sm:text-base line-clamp-1">
+                        <h3 className="font-heading font-semibold text-stone-900 group-hover:text-amber-600 transition text-sm sm:text-base line-clamp-1">
                           {p.name}
                         </h3>
                         <p className="text-xs text-stone-500 font-mono">{p.unit}</p>
@@ -736,7 +745,7 @@ export default function ShopperView({
           <section className="max-w-7xl mx-auto px-4 sm:px-8 space-y-8">
             <div className="text-center">
               <span className="text-xs text-amber-600 font-mono tracking-widest uppercase">Gourmet Cuisines</span>
-              <h2 className="text-3xl font-serif font-semibold mt-1 text-stone-950">Shop by Curated Collections</h2>
+              <h2 className="text-3xl font-heading font-bold mt-1 text-stone-950">Shop by Curated Collections</h2>
               <p className="text-stone-500 text-sm mt-1">Elegantly sourced pantry packages suited for bespoke culinary lifestyles.</p>
             </div>
 
@@ -753,9 +762,9 @@ export default function ShopperView({
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/30 to-transparent flex flex-col justify-end p-6" />
                 <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
-                  <span className="text-[10px] font-mono tracking-widest text-amber-400 block uppercase">Jos Plateau Farms</span>
-                  <h3 className="font-serif text-xl font-semibold">Organic Produce Basket</h3>
-                  <p className="text-stone-300 text-xs font-serif line-clamp-1">Freshly handpicked vine tomatoes, heirloom carrots, and live greens.</p>
+                  <span className="text-[10px] font-mono tracking-widest text-amber-400 block uppercase">Oyo Valley Organic Farms</span>
+                  <h3 className="font-heading text-xl font-bold">Organic Produce Basket</h3>
+                  <p className="text-stone-300 text-xs font-sans line-clamp-1">Freshly handpicked vine tomatoes, heirloom carrots, and live greens.</p>
                 </div>
               </div>
 
@@ -771,8 +780,8 @@ export default function ShopperView({
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/30 to-transparent flex flex-col justify-end p-6" />
                 <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
                   <span className="text-[10px] font-mono tracking-widest text-amber-400 block uppercase">Wet-Aged Prime Cuts</span>
-                  <h3 className="font-serif text-xl font-semibold">Aged Meats & Salmon</h3>
-                  <p className="text-stone-300 text-xs font-serif line-clamp-1">Pasture-raised Angus steaks, precautious cold-smoked salmon cut fillets.</p>
+                  <h3 className="font-heading text-xl font-bold">Aged Meats & Salmon</h3>
+                  <p className="text-stone-300 text-xs font-sans line-clamp-1">Pasture-raised Angus steaks, precautious cold-smoked salmon cut fillets.</p>
                 </div>
               </div>
 
@@ -788,8 +797,8 @@ export default function ShopperView({
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/30 to-transparent flex flex-col justify-end p-6" />
                 <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
                   <span className="text-[10px] font-mono tracking-widest text-amber-400 block uppercase">Slow-Fermented Goods</span>
-                  <h3 className="font-serif text-xl font-semibold">Gourmet Sourdough Bakery</h3>
-                  <p className="text-stone-300 text-xs font-serif line-clamp-1">Wild yeast starters sourdough crusty loaves and sweet plateau honey jars.</p>
+                  <h3 className="font-heading text-xl font-bold">Gourmet Sourdough Bakery</h3>
+                  <p className="text-stone-300 text-xs font-sans line-clamp-1">Wild yeast starters sourdough crusty loaves and sweet plateau honey jars.</p>
                 </div>
               </div>
 
@@ -800,9 +809,9 @@ export default function ShopperView({
           <section className="bg-amber-500/10 border-y border-amber-500/30 py-12 px-6 text-center">
             <div className="max-w-2xl mx-auto space-y-4">
               <Award className="w-8 h-8 text-amber-600 mx-auto" />
-              <h3 className="text-2xl font-serif font-semibold text-stone-950">Nouveau Gourmet Club Privilege</h3>
-              <p className="text-stone-600 text-sm font-serif">
-                Enjoy complimentary express shipping across Ikoyi, Victoria Island, and Lekki Phase 1 on all order baskets over ₦15,000.00. High-converting cold chain packaging is standardized.
+              <h3 className="text-2xl font-heading font-bold text-stone-950">Nouveau Gourmet Club Privilege</h3>
+              <p className="text-stone-600 text-sm font-sans">
+                Enjoy complimentary express shipping across Bodija, Jericho, and Oluyole Estate on all order baskets over ₦15,000.00. High-converting cold chain packaging is standardized.
               </p>
             </div>
           </section>
@@ -816,7 +825,7 @@ export default function ShopperView({
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-stone-200 pb-6 mb-8">
             <div>
               <span className="text-xs text-stone-500 font-mono uppercase tracking-widest">Gourmet Catalogue</span>
-              <h1 className="text-3xl font-serif font-semibold mt-1">
+              <h1 className="text-3xl font-heading font-bold mt-1">
                 {selectedCategory === 'All' ? 'Complete Collection' : `${selectedCategory}`}
               </h1>
               <p className="text-stone-500 text-sm mt-1">
@@ -886,7 +895,7 @@ export default function ShopperView({
                     {/* Low stock indicators */}
                     {p.stock === 0 ? (
                       <div className="absolute inset-0 bg-stone-950/60 flex items-center justify-center">
-                        <span className="text-white text-xs font-serif font-bold uppercase tracking-wider bg-rose-600 px-3 py-1.5 rounded shadow">
+                        <span className="text-white text-xs font-heading font-bold uppercase tracking-wider bg-rose-600 px-3 py-1.5 rounded shadow">
                           Out of Stock
                         </span>
                       </div>
@@ -900,7 +909,7 @@ export default function ShopperView({
                   <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
                     <div className="space-y-1.5">
                       <span className="text-[10px] text-stone-400 font-mono uppercase block">{p.category}</span>
-                      <h3 className="font-serif font-medium text-stone-900 group-hover:text-amber-600 transition text-sm sm:text-base line-clamp-1">
+                      <h3 className="font-heading font-semibold text-stone-900 group-hover:text-amber-600 transition text-sm sm:text-base line-clamp-1">
                         {p.name}
                       </h3>
                       <p className="text-xs text-stone-500 font-mono">{p.unit}</p>
@@ -936,7 +945,7 @@ export default function ShopperView({
 
           {filteredProducts.length === 0 && (
             <div className="text-center py-20 border border-dashed border-stone-200 rounded-2xl bg-stone-50">
-              <span className="text-sm font-serif italic text-stone-500">No premium items matched your query. Try searching for "tomatoes", "salmon" or clear filtering.</span>
+              <span className="text-sm font-sans italic text-stone-500">No premium items matched your query. Try searching for "tomatoes", "salmon" or clear filtering.</span>
             </div>
           )}
         </div>
@@ -951,11 +960,11 @@ export default function ShopperView({
             <div className="lg:col-span-1 space-y-6">
               
               <div className="bg-white border border-stone-200 rounded-2xl p-6 shadow-sm text-center">
-                <div className="w-20 h-20 rounded-full bg-amber-500 text-stone-950 flex items-center justify-center font-serif text-3xl font-extrabold mx-auto shadow-md">
-                  RA
+                <div className="w-20 h-20 rounded-full bg-amber-500 text-stone-950 flex items-center justify-center font-heading text-3xl font-extrabold mx-auto shadow-md">
+                  AD
                 </div>
-                <h2 className="text-xl font-serif font-semibold text-stone-900 mt-4">Richard Adewoye</h2>
-                <p className="text-xs text-stone-500 font-mono mt-1">richardadewoye031@gmail.com</p>
+                <h2 className="text-xl font-heading font-bold text-stone-900 mt-4">Ayo David</h2>
+                <p className="text-xs text-stone-500 font-mono mt-1">ayodavid@gmail.com</p>
                 <span className="inline-block mt-3 bg-stone-100 text-stone-800 font-mono text-[10px] px-3 py-1 rounded-full font-bold">
                   Gourmet Club Elite member
                 </span>
@@ -965,7 +974,7 @@ export default function ShopperView({
               {/* Address Book Card */}
               <div className="bg-white border border-stone-200 rounded-2xl p-6 shadow-sm space-y-4">
                 <div className="flex items-center justify-between border-b border-stone-100 pb-2">
-                  <h3 className="font-serif font-semibold text-sm">Saved Address Book</h3>
+                  <h3 className="font-heading font-bold text-sm">Saved Address Book</h3>
                   <button 
                     onClick={() => setShowAddAddress(!showAddAddress)}
                     className="text-amber-600 hover:text-amber-700 text-xs font-mono font-bold uppercase flex items-center gap-0.5"
@@ -995,7 +1004,7 @@ export default function ShopperView({
                         required
                         value={newAddressForm.fullName}
                         onChange={(e) => setNewAddressForm({ ...newAddressForm, fullName: e.target.value })}
-                        placeholder="Richard Adewoye"
+                        placeholder="Ayo David"
                         className="bg-white border border-stone-200 px-2 py-1 rounded w-full focus:outline-none focus:border-amber-500"
                       />
                     </div>
@@ -1017,7 +1026,7 @@ export default function ShopperView({
                         required
                         value={newAddressForm.street}
                         onChange={(e) => setNewAddressForm({ ...newAddressForm, street: e.target.value })}
-                        placeholder="Plot 14, Karimu Kotun"
+                        placeholder="Plot 14, Awolowo Avenue"
                         className="bg-white border border-stone-200 px-2 py-1 rounded w-full focus:outline-none focus:border-amber-500"
                       />
                     </div>
@@ -1028,7 +1037,7 @@ export default function ShopperView({
                         required
                         value={newAddressForm.city}
                         onChange={(e) => setNewAddressForm({ ...newAddressForm, city: e.target.value })}
-                        placeholder="Victoria Island"
+                        placeholder="Bodija, Ibadan"
                         className="bg-white border border-stone-200 px-2 py-1 rounded w-full focus:outline-none focus:border-amber-500"
                       />
                     </div>
@@ -1042,7 +1051,7 @@ export default function ShopperView({
                       </button>
                       <button 
                         type="submit" 
-                        className="bg-amber-500 text-stone-950 font-serif font-bold px-3.5 py-1 rounded hover:bg-amber-400"
+                        className="bg-amber-500 text-stone-950 font-heading font-bold px-3.5 py-1 rounded hover:bg-amber-400"
                       >
                         Save Address
                       </button>
@@ -1075,7 +1084,7 @@ export default function ShopperView({
             <div className="lg:col-span-2 space-y-6">
               
               <div className="bg-white border border-stone-200 rounded-2xl p-6 shadow-sm">
-                <h3 className="text-lg font-serif font-semibold border-b border-stone-100 pb-3 mb-4">
+                <h3 className="text-lg font-heading font-bold border-b border-stone-100 pb-3 mb-4">
                   Logistics Tracking & Past Orders
                 </h3>
 
@@ -1173,7 +1182,7 @@ export default function ShopperView({
                         <div className="flex justify-end pt-2 border-t border-stone-100">
                           <button
                             onClick={() => handleReorderAll(order)}
-                            className="bg-stone-950 hover:bg-stone-850 text-white font-serif font-bold text-xs px-4 py-2 rounded-lg transition"
+                            className="bg-stone-950 hover:bg-stone-850 text-white font-heading font-bold text-xs px-4 py-2 rounded-lg transition"
                           >
                             Reorder All Items
                           </button>
@@ -1197,9 +1206,9 @@ export default function ShopperView({
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           
           <div className="space-y-4">
-            <h4 className="font-serif text-lg font-bold tracking-widest text-white">NOUVEAU</h4>
-            <p className="text-xs text-stone-400 font-serif leading-relaxed">
-              Nigeria's premiere full-stack organic supermarket platform, delivering high-end gourmet provisions, fresh farm heirloom vegetables, and premium dairy stables across Lagos and Abuja islands.
+            <h4 className="font-heading text-lg font-extrabold tracking-widest text-white">NOUVEAU</h4>
+            <p className="text-xs text-stone-400 font-sans leading-relaxed">
+              Nigeria's premiere full-stack organic supermarket platform, delivering high-end gourmet provisions, fresh farm heirloom vegetables, and premium dairy stables across Ibadan and Oyo State.
             </p>
           </div>
 
@@ -1215,9 +1224,9 @@ export default function ShopperView({
 
           <div className="space-y-3.5 text-xs">
             <h5 className="font-mono text-[10px] tracking-widest uppercase text-stone-500">Corporate Club</h5>
-            <div className="flex flex-col gap-2 font-serif text-stone-400">
+            <div className="flex flex-col gap-2 font-sans text-stone-400">
               <span>Bespoke Hotel Supply</span>
-              <span>Lagos Office Pantries</span>
+              <span>Ibadan Office Pantries</span>
               <span>Gift Hamper Curation</span>
               <span>Privilege Rewards Program</span>
             </div>
@@ -1256,7 +1265,7 @@ export default function ShopperView({
           <div className="relative w-full max-w-md bg-white h-full shadow-2xl flex flex-col justify-between p-6 animate-slideIn">
             <div className="space-y-6 overflow-y-auto flex-1">
               <div className="flex items-center justify-between border-b border-stone-200 pb-4">
-                <h3 className="text-xl font-serif font-bold text-stone-950 flex items-center gap-2">
+                <h3 className="text-xl font-heading font-bold text-stone-950 flex items-center gap-2">
                   <Heart className="w-5 h-5 text-amber-600" />
                   <span>Your Saved Wishlist</span>
                 </h3>
@@ -1283,13 +1292,13 @@ export default function ShopperView({
                       <img src={p.image} alt={p.name} className="w-16 h-16 object-cover rounded-lg border border-stone-200" />
                       <div className="flex-1 space-y-1">
                         <span className="text-[9px] text-stone-400 font-mono uppercase block">{p.category}</span>
-                        <h4 className="font-serif font-semibold text-sm line-clamp-1 text-stone-900">{p.name}</h4>
+                        <h4 className="font-heading font-semibold text-sm line-clamp-1 text-stone-900">{p.name}</h4>
                         <p className="text-xs text-stone-500 font-mono">{formatNaira(p.price)}</p>
                         <div className="flex items-center gap-2.5 pt-1.5">
                           <button
                             onClick={() => addToCart(p)}
                             disabled={p.stock === 0}
-                            className="bg-stone-950 hover:bg-stone-850 text-white font-serif font-bold text-[10px] px-3 py-1 rounded transition"
+                            className="bg-stone-950 hover:bg-stone-850 text-white font-heading font-bold text-[10px] px-3 py-1 rounded transition"
                           >
                             Add to Basket
                           </button>
@@ -1318,7 +1327,7 @@ export default function ShopperView({
             
             <div className="space-y-6 overflow-y-auto flex-1 pb-4">
               <div className="flex items-center justify-between border-b border-stone-200 pb-4">
-                <h3 className="text-xl font-serif font-bold text-stone-950 flex items-center gap-2.5">
+                <h3 className="text-xl font-heading font-bold text-stone-950 flex items-center gap-2.5">
                   <ShoppingBag className="w-5 h-5 text-amber-600" />
                   <span>Shopping Basket</span>
                 </h3>
@@ -1345,7 +1354,7 @@ export default function ShopperView({
                       <img src={item.product.image} alt={item.product.name} className="w-16 h-16 object-cover rounded-lg border border-stone-200" />
                       <div className="flex-1 space-y-1">
                         <span className="text-[9px] text-stone-400 font-mono uppercase block">{item.product.category}</span>
-                        <h4 className="font-serif font-semibold text-sm line-clamp-1 text-stone-900">{item.product.name}</h4>
+                        <h4 className="font-heading font-semibold text-sm line-clamp-1 text-stone-900">{item.product.name}</h4>
                         <div className="flex items-center justify-between">
                           <span className="text-xs text-stone-500 font-mono font-medium">{formatNaira(item.product.price)}</span>
                           <span className="text-xs font-mono font-bold text-stone-900">Total: {formatNaira(item.product.price * item.quantity).split('.')[0]}</span>
@@ -1394,7 +1403,7 @@ export default function ShopperView({
                     <span>Delivery Charge:</span>
                     <span>{deliveryFee === 0 ? "FREE (Club Member)" : formatNaira(deliveryFee)}</span>
                   </div>
-                  <div className="flex justify-between text-sm text-stone-900 font-bold font-serif pt-1.5 border-t border-stone-100">
+                  <div className="flex justify-between text-sm text-stone-900 font-bold font-heading pt-1.5 border-t border-stone-100">
                     <span>Grand Total:</span>
                     <span>{formatNaira(grandTotal)}</span>
                   </div>
@@ -1406,7 +1415,7 @@ export default function ShopperView({
                     setIsCheckingOut(true);
                     setCheckoutStep(1);
                   }}
-                  className="w-full bg-stone-950 hover:bg-stone-850 text-white font-serif font-bold text-sm py-3.5 rounded-xl tracking-wider uppercase transition text-center block shadow"
+                  className="w-full bg-stone-950 hover:bg-stone-850 text-white font-heading font-bold text-sm py-3.5 rounded-xl tracking-wider uppercase transition text-center block shadow"
                 >
                   Proceed to Checkout
                 </button>
@@ -1455,7 +1464,7 @@ export default function ShopperView({
                       className="bg-stone-50 border border-stone-200 p-2 rounded-lg cursor-pointer hover:border-amber-500/30 hover:bg-white transition flex flex-col gap-1 text-[10px]"
                     >
                       <img src={rec.image} alt={rec.name} className="aspect-[4/3] object-cover rounded" />
-                      <h5 className="font-serif font-medium text-stone-900 line-clamp-1">{rec.name}</h5>
+                      <h5 className="font-heading font-semibold text-stone-900 line-clamp-1">{rec.name}</h5>
                       <span className="font-mono text-amber-700 font-semibold">{formatNaira(rec.price).split('.')[0]}</span>
                     </div>
                   ))}
@@ -1469,7 +1478,7 @@ export default function ShopperView({
               <div className="space-y-4">
                 <div className="space-y-1">
                   <span className="text-xs text-stone-400 font-mono uppercase">{selectedProduct.category}</span>
-                  <h2 className="text-2xl font-serif font-bold text-stone-950 leading-tight">{selectedProduct.name}</h2>
+                  <h2 className="text-2xl font-heading font-bold text-stone-950 leading-tight">{selectedProduct.name}</h2>
                   <p className="text-xs text-stone-500 font-mono">{selectedProduct.unit}</p>
                 </div>
 
@@ -1496,7 +1505,7 @@ export default function ShopperView({
                   )}
                 </div>
 
-                <p className="text-xs text-stone-600 leading-relaxed font-serif">
+                <p className="text-xs text-stone-600 leading-relaxed font-sans">
                   {selectedProduct.description}
                 </p>
 
@@ -1505,7 +1514,7 @@ export default function ShopperView({
                   <button
                     onClick={() => { addToCart(selectedProduct); setSelectedProduct(null); }}
                     disabled={selectedProduct.stock === 0}
-                    className="flex-1 bg-stone-950 hover:bg-stone-850 text-white font-serif font-bold text-xs py-3 rounded-lg uppercase tracking-wider transition text-center"
+                    className="flex-1 bg-stone-950 hover:bg-stone-850 text-white font-heading font-bold text-xs py-3 rounded-lg uppercase tracking-wider transition text-center"
                   >
                     {selectedProduct.stock === 0 ? "Out of Stock" : "Add to Shopping Basket"}
                   </button>
@@ -1525,7 +1534,7 @@ export default function ShopperView({
                 
                 {/* Submit new review */}
                 <form onSubmit={handleAddReview} className="space-y-3 bg-stone-50 p-3.5 rounded-xl border border-stone-100 text-xs">
-                  <span className="font-bold font-serif text-stone-900 block text-xs">Share Your Feedback</span>
+                  <span className="font-bold font-heading text-stone-900 block text-xs">Share Your Feedback</span>
                   
                   <div className="grid grid-cols-2 gap-3">
                     <div className="space-y-1">
@@ -1566,7 +1575,7 @@ export default function ShopperView({
 
                   <button 
                     type="submit" 
-                    className="bg-stone-950 text-white font-serif text-[10px] font-bold px-4 py-1.5 rounded hover:bg-stone-850 transition"
+                    className="bg-stone-950 text-white font-heading text-[10px] font-bold px-4 py-1.5 rounded hover:bg-stone-850 transition"
                   >
                     Submit Verified Review
                   </button>
@@ -1627,7 +1636,7 @@ export default function ShopperView({
             <div className="border-b border-stone-100 pb-5 mb-6 flex items-center justify-between">
               <div>
                 <span className="text-[10px] text-stone-400 font-mono uppercase tracking-wider">Gourmet Checkout</span>
-                <h3 className="text-xl font-serif font-bold text-stone-950">Complete Secure Order</h3>
+                <h3 className="text-xl font-heading font-bold text-stone-950">Complete Secure Order</h3>
               </div>
 
               {/* Progress markers */}
@@ -1644,7 +1653,7 @@ export default function ShopperView({
             {checkoutStep === 1 && (
               <div className="space-y-6">
                 <div>
-                  <h4 className="font-serif font-semibold text-sm mb-3 text-stone-900">Select Shipping Destination</h4>
+                  <h4 className="font-heading font-bold text-sm mb-3 text-stone-900">Select Shipping Destination</h4>
                   
                   <div className="grid grid-cols-1 gap-3.5">
                     {addressBook.map(addr => (
@@ -1677,10 +1686,10 @@ export default function ShopperView({
                 </div>
 
                 <div className="flex justify-between items-center pt-4 border-t border-stone-100">
-                  <span className="text-xs text-stone-500 font-serif">Island deliveries are packaged in insulated cold-boxes.</span>
+                  <span className="text-xs text-stone-500 font-sans">Ibadan express deliveries are packaged in insulated cold-boxes.</span>
                   <button
                     onClick={() => setCheckoutStep(2)}
-                    className="bg-stone-950 hover:bg-stone-850 text-white font-serif font-bold text-xs px-6 py-3 rounded-lg uppercase tracking-wider transition"
+                    className="bg-stone-950 hover:bg-stone-850 text-white font-heading font-bold text-xs px-6 py-3 rounded-lg uppercase tracking-wider transition"
                   >
                     Continue to Payment
                   </button>
@@ -1697,7 +1706,7 @@ export default function ShopperView({
                   
                   {/* Payment selection */}
                   <div className="space-y-3">
-                    <h4 className="font-serif font-semibold text-sm text-stone-950">Payment Method</h4>
+                    <h4 className="font-heading font-bold text-sm text-stone-950">Payment Method</h4>
                     <div className="grid grid-cols-2 gap-3.5">
                       <div 
                         onClick={() => setPaymentMethod('Card')}
@@ -1706,7 +1715,7 @@ export default function ShopperView({
                         }`}
                       >
                         <CreditCard className="w-5 h-5 text-amber-500" />
-                        <span className="text-xs font-serif font-medium text-stone-900">Credit / Debit Card</span>
+                        <span className="text-xs font-sans font-medium text-stone-900">Credit / Debit Card</span>
                       </div>
                       <div 
                         onClick={() => setPaymentMethod('Bank Transfer')}
@@ -1715,14 +1724,14 @@ export default function ShopperView({
                         }`}
                       >
                         <Truck className="w-5 h-5 text-amber-500" />
-                        <span className="text-xs font-serif font-medium text-stone-900">Bank Transfer</span>
+                        <span className="text-xs font-sans font-medium text-stone-900">Bank Transfer</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Coupon Promo code engine */}
                   <div className="space-y-3 bg-stone-50 p-4 rounded-xl border border-stone-100 text-xs">
-                    <div className="flex items-center gap-1.5 font-serif font-semibold text-stone-900 text-sm">
+                    <div className="flex items-center gap-1.5 font-heading font-bold text-stone-900 text-sm">
                       <Percent className="w-4.5 h-4.5 text-amber-500" />
                       <span>Apply Promotional Coupon</span>
                     </div>
@@ -1738,7 +1747,7 @@ export default function ShopperView({
                       />
                       <button
                         onClick={handleApplyCoupon}
-                        className="bg-stone-950 text-white font-serif font-bold px-4 py-2 rounded hover:bg-stone-850"
+                        className="bg-stone-950 text-white font-heading font-bold px-4 py-2 rounded hover:bg-stone-850"
                       >
                         Apply
                       </button>
@@ -1752,7 +1761,7 @@ export default function ShopperView({
 
                 {/* Basket recap & totals */}
                 <div className="md:col-span-2 bg-stone-50 p-4 rounded-xl border border-stone-200 text-xs space-y-4">
-                  <h4 className="font-serif font-semibold text-stone-950 text-xs uppercase tracking-wider pb-1.5 border-b border-stone-200">Basket Summary</h4>
+                  <h4 className="font-heading font-bold text-stone-950 text-xs uppercase tracking-wider pb-1.5 border-b border-stone-200">Basket Summary</h4>
                   
                   <div className="max-h-40 overflow-y-auto space-y-2.5">
                     {cart.map(item => (
@@ -1780,7 +1789,7 @@ export default function ShopperView({
                       <span>Delivery charge:</span>
                       <span>{deliveryFee === 0 ? "FREE" : formatNaira(deliveryFee).split('.')[0]}</span>
                     </div>
-                    <div className="flex justify-between text-sm text-stone-900 font-bold font-serif pt-2 border-t border-stone-100">
+                    <div className="flex justify-between text-sm text-stone-900 font-bold font-heading pt-2 border-t border-stone-100">
                       <span>Grand Total:</span>
                       <span className="text-stone-950 font-mono">{formatNaira(grandTotal)}</span>
                     </div>
@@ -1790,14 +1799,14 @@ export default function ShopperView({
                 <div className="md:col-span-5 flex justify-between items-center pt-4 border-t border-stone-100">
                   <button
                     onClick={() => setCheckoutStep(1)}
-                    className="text-stone-500 hover:text-stone-850 text-xs font-serif font-bold flex items-center gap-1"
+                    className="text-stone-500 hover:text-stone-850 text-xs font-heading font-bold flex items-center gap-1"
                   >
                     <ArrowLeft className="w-4 h-4" /> Go Back
                   </button>
                   <button
                     onClick={handlePlaceOrder}
                     disabled={isOffline}
-                    className={`font-serif font-bold text-xs px-8 py-3.5 rounded-lg uppercase tracking-wider transition ${
+                    className={`font-heading font-bold text-xs px-8 py-3.5 rounded-lg uppercase tracking-wider transition ${
                       isOffline 
                         ? 'bg-stone-200 text-stone-400 cursor-not-allowed border border-stone-300' 
                         : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-md'
@@ -1818,9 +1827,9 @@ export default function ShopperView({
                 </div>
 
                 <div className="space-y-2">
-                  <h4 className="font-serif text-2xl font-bold text-stone-950">Grand Cuisine Ordered!</h4>
+                  <h4 className="font-heading text-2xl font-bold text-stone-950">Grand Cuisine Ordered!</h4>
                   <p className="text-xs text-stone-500 font-mono">Your secure transaction order reference is: <strong>{confirmedOrder.id}</strong></p>
-                  <p className="text-sm text-stone-600 font-serif max-w-md mx-auto">
+                  <p className="text-sm text-stone-600 font-sans max-w-md mx-auto">
                     We have charged <strong>{formatNaira(confirmedOrder.total)}</strong> to your payment card. Cold chain packing is currently underway. A delivery driver has been allocated to {confirmedOrder.address.label}.
                   </p>
                 </div>
@@ -1841,7 +1850,7 @@ export default function ShopperView({
                       setIsCheckingOut(false);
                       setActiveScreen('account');
                     }}
-                    className="bg-stone-950 hover:bg-stone-850 text-white font-serif font-bold text-xs px-6 py-3.5 rounded-lg uppercase tracking-wider transition"
+                    className="bg-stone-950 hover:bg-stone-850 text-white font-heading font-bold text-xs px-6 py-3.5 rounded-lg uppercase tracking-wider transition"
                   >
                     Track Logistics Milestones
                   </button>
@@ -1850,7 +1859,7 @@ export default function ShopperView({
                       setIsCheckingOut(false);
                       setActiveScreen('shop');
                     }}
-                    className="bg-stone-100 hover:bg-stone-200 text-stone-800 font-serif font-bold text-xs px-6 py-3.5 rounded-lg uppercase tracking-wider transition border border-stone-200"
+                    className="bg-stone-100 hover:bg-stone-200 text-stone-800 font-heading font-bold text-xs px-6 py-3.5 rounded-lg uppercase tracking-wider transition border border-stone-200"
                   >
                     Continue Browsing
                   </button>
@@ -1875,8 +1884,8 @@ export default function ShopperView({
             <div className="w-12 h-12 bg-amber-500/10 text-amber-600 rounded-full flex items-center justify-center mx-auto border border-amber-500/20 shadow">
               <Sparkles className="w-6 h-6 animate-pulse" />
             </div>
-            <h4 className="font-serif text-lg font-bold text-stone-950 uppercase tracking-wide">Privilege Flash Campaign</h4>
-            <p className="text-xs text-stone-600 leading-relaxed font-serif max-w-sm">
+            <h4 className="font-heading text-lg font-bold text-stone-950 uppercase tracking-wide">Privilege Flash Campaign</h4>
+            <p className="text-xs text-stone-600 leading-relaxed font-sans max-w-sm">
               {promoPopup.text}
             </p>
             <div className="bg-stone-50 border border-stone-100 p-2.5 rounded font-mono text-xs font-bold text-amber-600 flex items-center justify-center gap-1">
@@ -1885,7 +1894,7 @@ export default function ShopperView({
             </div>
             <button
               onClick={() => setShowPromoModal(false)}
-              className="w-full bg-stone-950 hover:bg-stone-850 text-white text-xs font-serif font-bold py-3 rounded-lg uppercase tracking-wider"
+              className="w-full bg-stone-950 hover:bg-stone-850 text-white text-xs font-heading font-bold py-3 rounded-lg uppercase tracking-wider"
             >
               Start Curated Shopping
             </button>

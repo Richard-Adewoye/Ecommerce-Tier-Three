@@ -97,7 +97,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 4, // low stock to trigger warnings!
     rating: 4.9,
     reviewsCount: 18,
-    description: "Hand-picked organic heirloom tomatoes sourced directly from the volcanic soils of Jos. Brimming with intense natural sweetness and loaded with vitamins. Ideal for fresh Caprese salads or rich authentic sauces.",
+    description: "Hand-picked organic heirloom tomatoes sourced directly from the fertile farms of Iseyin and Oyo valley. Brimming with intense natural sweetness and loaded with vitamins. Ideal for fresh Caprese salads or rich authentic sauces.",
     unit: "1kg Basket",
     isBestseller: true,
     isFlashSale: true,
@@ -142,7 +142,7 @@ export const INITIAL_PRODUCTS: Product[] = [
   },
   {
     id: "p5",
-    name: "Pure Wildflower Jos plateau Honey",
+    name: "Pure Wildflower Oyo Valley Honey",
     category: "Pantry",
     price: 6800,
     originalPrice: 8000,
@@ -150,7 +150,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 3, // low stock!
     rating: 5.0,
     reviewsCount: 42,
-    description: "Raw, unfiltered honey harvested by artisanal beekeepers in the wild meadows of the Jos Plateau. Retains all natural pollens and enzymes. Golden amber appearance with a clean, floral aroma.",
+    description: "Raw, unfiltered honey harvested by artisanal beekeepers in the wild meadows of the Oyo Valley. Retains all natural pollens and enzymes. Golden amber appearance with a clean, floral aroma.",
     unit: "450g Jar",
     isBestseller: false,
     isFlashSale: true,
@@ -242,8 +242,8 @@ export const INITIAL_PRODUCTS: Product[] = [
 export const INITIAL_CUSTOMERS: Customer[] = [
   {
     id: "c1",
-    name: "Richard Adewoye",
-    email: "richardadewoye031@gmail.com",
+    name: "Ayo David",
+    email: "ayodavid@gmail.com",
     phone: "+234 812 345 6789",
     totalSpent: 182500,
     orderCount: 5,
@@ -275,32 +275,32 @@ export const INITIAL_CUSTOMERS: Customer[] = [
 export const INITIAL_ADDRESSES: Address[] = [
   {
     id: "a1",
-    label: "Home (Victoria Island)",
-    fullName: "Richard Adewoye",
+    label: "Home (Bodija, Ibadan)",
+    fullName: "Ayo David",
     phone: "+234 812 345 6789",
-    street: "Plot 14, Karimu Kotun Street",
-    city: "Victoria Island",
-    state: "Lagos State",
+    street: "Plot 14, Awolowo Avenue, Bodija",
+    city: "Bodija, Ibadan",
+    state: "Oyo State",
     isDefault: true
   },
   {
     id: "a2",
-    label: "Office (Lekki Phase 1)",
-    fullName: "Richard Adewoye",
+    label: "Office (Jericho, Ibadan)",
+    fullName: "Ayo David",
     phone: "+234 812 345 9999",
-    street: "Capital Hub, Block B, Admiralty Way",
-    city: "Lekki Phase 1",
-    state: "Lagos State",
+    street: "Heritage Mall, Bank Road, Jericho",
+    city: "Jericho, Ibadan",
+    state: "Oyo State",
     isDefault: false
   },
   {
     id: "a3",
-    label: "Family (Ikeja GRA)",
-    fullName: "Adewoye Family",
+    label: "Family (Agodi GRA, Ibadan)",
+    fullName: "David Family",
     phone: "+234 802 111 3333",
-    street: "5, Joel Ogunnaike Street",
-    city: "Ikeja GRA",
-    state: "Lagos State",
+    street: "5, Secretariat Road, Agodi GRA",
+    city: "Agodi GRA, Ibadan",
+    state: "Oyo State",
     isDefault: false
   }
 ];
@@ -325,7 +325,7 @@ export const INITIAL_ORDERS: Order[] = [
     total: 26160,
     status: "Delivered",
     address: INITIAL_ADDRESSES[0],
-    deliveryZone: "Victoria Island (Lagos)",
+    deliveryZone: "Bodija (Ibadan, Oyo State)",
     driverName: "Chinedu Okafor",
     paymentMethod: "Credit Card",
     couponCode: "WELCOME10"
@@ -353,7 +353,7 @@ export const INITIAL_ORDERS: Order[] = [
     total: 37800,
     status: "Processing",
     address: INITIAL_ADDRESSES[0],
-    deliveryZone: "Victoria Island (Lagos)",
+    deliveryZone: "Bodija (Ibadan, Oyo State)",
     driverName: "Emeka Nwosu",
     paymentMethod: "Bank Transfer"
   }
@@ -361,24 +361,24 @@ export const INITIAL_ORDERS: Order[] = [
 
 export const COUPONS: Record<string, { type: 'percent' | 'flat'; value: number }> = {
   "SAVE10": { type: 'percent', value: 10 },
-  "LAGOS50": { type: 'percent', value: 15 },
+  "IBADAN50": { type: 'percent', value: 15 },
   "FREESHIP": { type: 'flat', value: 2000 },
   "WELCOME20": { type: 'percent', value: 20 }
 };
 
 export const DELIVERY_ZONES = [
-  "Victoria Island (Lagos)",
-  "Lekki Phase 1 (Lagos)",
-  "Ikoyi (Lagos)",
-  "Ikeja GRA (Lagos)",
-  "Maitama (Abuja)",
-  "Wuse II (Abuja)"
+  "Bodija (Ibadan, Oyo State)",
+  "Jericho (Ibadan, Oyo State)",
+  "Oluyole Estate (Ibadan, Oyo State)",
+  "Agodi GRA (Ibadan, Oyo State)",
+  "Ring Road (Ibadan, Oyo State)",
+  "Samonda / UI (Ibadan, Oyo State)"
 ];
 
 export const DRIVERS = [
   "Chinedu Okafor",
   "Emeka Nwosu",
-  "Babajide Sanwo",
+  "Abiodun Laniyan",
   "Musa Ibrahim",
   "Seyi Makinde"
 ];

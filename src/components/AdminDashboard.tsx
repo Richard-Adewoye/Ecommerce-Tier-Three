@@ -254,7 +254,7 @@ export default function AdminDashboard({
       <div className="max-w-7xl mx-auto mb-8 border-b border-stone-800 pb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <span className="text-xs text-amber-500 font-mono tracking-widest uppercase">Enterprise Administration</span>
-          <h1 className="text-3xl font-serif font-semibold mt-1">Nouveau Control Center</h1>
+          <h1 className="text-3xl font-heading font-bold mt-1">Nouveau Control Center</h1>
           <p className="text-stone-400 text-sm mt-1">Real-time logistics dispatching, bulk stock inventory, and multi-branch revenue analytics.</p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -390,7 +390,7 @@ export default function AdminDashboard({
                 <div className="bg-stone-900 border border-stone-800 p-5 rounded-xl shadow-xl flex flex-col justify-between">
                   <div>
                     <span className="text-xs text-stone-500 font-mono block">Gross Revenue</span>
-                    <h3 className="text-2xl font-serif mt-2 text-stone-100">{formatNaira(grossRevenue)}</h3>
+                    <h3 className="text-2xl font-heading font-bold mt-2 text-stone-100 tabular-nums">{formatNaira(grossRevenue)}</h3>
                   </div>
                   <div className="mt-4 flex items-center gap-1.5 text-xs text-emerald-400 font-mono">
                     <TrendingUp className="w-3.5 h-3.5" />
@@ -401,7 +401,7 @@ export default function AdminDashboard({
                 <div className="bg-stone-900 border border-stone-800 p-5 rounded-xl shadow-xl flex flex-col justify-between">
                   <div>
                     <span className="text-xs text-stone-500 font-mono block">Simulated Net Profit (28%)</span>
-                    <h3 className="text-2xl font-serif mt-2 text-emerald-400">{formatNaira(netProfit)}</h3>
+                    <h3 className="text-2xl font-heading font-bold mt-2 text-emerald-400 tabular-nums">{formatNaira(netProfit)}</h3>
                   </div>
                   <div className="mt-4 flex items-center gap-1.5 text-xs text-emerald-400 font-mono">
                     <TrendingUp className="w-3.5 h-3.5" />
@@ -412,7 +412,7 @@ export default function AdminDashboard({
                 <div className="bg-stone-900 border border-stone-800 p-5 rounded-xl shadow-xl flex flex-col justify-between">
                   <div>
                     <span className="text-xs text-stone-500 font-mono block">Average Order Value</span>
-                    <h3 className="text-2xl font-serif mt-2 text-stone-100">{formatNaira(aov)}</h3>
+                    <h3 className="text-2xl font-heading font-bold mt-2 text-stone-100 tabular-nums">{formatNaira(aov)}</h3>
                   </div>
                   <div className="mt-4 flex items-center gap-1.5 text-xs text-amber-500 font-mono">
                     <span>₦22,500 target baseline</span>
@@ -422,7 +422,7 @@ export default function AdminDashboard({
                 <div className="bg-stone-900 border border-stone-800 p-5 rounded-xl shadow-xl flex flex-col justify-between">
                   <div>
                     <span className="text-xs text-stone-500 font-mono block">Returning Shopper Rate</span>
-                    <h3 className="text-2xl font-serif mt-2 text-stone-100">{returningCustomerRate}%</h3>
+                    <h3 className="text-2xl font-heading font-bold mt-2 text-stone-100 tabular-nums">{returningCustomerRate}%</h3>
                   </div>
                   <div className="mt-4 flex items-center gap-1.5 text-xs text-emerald-400 font-mono">
                     <span>Optimal loyalty status</span>
@@ -438,7 +438,7 @@ export default function AdminDashboard({
                 <div className="md:col-span-2 bg-stone-900 border border-stone-800 p-5 rounded-xl shadow-xl space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-lg font-serif">Revenue & Margin Growth</h3>
+                      <h3 className="text-lg font-heading font-bold">Revenue & Margin Growth</h3>
                       <p className="text-xs text-stone-500">Live transaction progression mapped to periods.</p>
                     </div>
                     <div className="bg-stone-950 p-1 rounded-lg border border-stone-800 flex gap-1">
@@ -475,7 +475,7 @@ export default function AdminDashboard({
                 {/* Category Pie Chart */}
                 <div className="bg-stone-900 border border-stone-800 p-5 rounded-xl shadow-xl flex flex-col justify-between">
                   <div>
-                    <h3 className="text-lg font-serif">Category Performance</h3>
+                    <h3 className="text-lg font-heading font-bold">Category Performance</h3>
                     <p className="text-xs text-stone-500">Live valuation of distributed basket checkout.</p>
                   </div>
                   
@@ -503,7 +503,7 @@ export default function AdminDashboard({
                     </ResponsiveContainer>
                     <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                       <span className="text-[10px] uppercase tracking-wider text-stone-500 font-mono">Baskets</span>
-                      <span className="text-sm font-serif font-semibold">{formatNaira(grossRevenue).split('.')[0]}</span>
+                      <span className="text-sm font-heading font-bold tabular-nums">{formatNaira(grossRevenue).split('.')[0]}</span>
                     </div>
                   </div>
 
@@ -526,7 +526,7 @@ export default function AdminDashboard({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 
                 <div className="bg-stone-900 border border-stone-800 p-5 rounded-xl shadow-xl space-y-4">
-                  <h3 className="text-lg font-serif">Top Bestselling Products</h3>
+                  <h3 className="text-lg font-heading font-bold">Top Bestselling Products</h3>
                   <div className="space-y-3">
                     {getBestselling().map((p, index) => (
                       <div key={p.id} className="flex items-center justify-between border-b border-stone-800 pb-3 last:border-0 last:pb-0">
@@ -549,7 +549,7 @@ export default function AdminDashboard({
 
                 <div className="bg-stone-900 border border-stone-800 p-5 rounded-xl shadow-xl space-y-4">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-serif">Enterprise Low Stock Monitor</h3>
+                    <h3 className="text-lg font-heading font-bold">Enterprise Low Stock Monitor</h3>
                     <span className="bg-amber-500 text-stone-950 px-2.5 py-0.5 rounded-full font-mono text-xs font-bold">
                       {lowStockCount} alert-active
                     </span>
@@ -611,7 +611,7 @@ export default function AdminDashboard({
             <div className="bg-stone-900 border border-stone-800 rounded-xl p-6 shadow-xl space-y-6 animate-fadeIn">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <h3 className="text-xl font-serif font-semibold">Inventory Control & Automation</h3>
+                  <h3 className="text-xl font-heading font-bold">Inventory Control & Automation</h3>
                   <p className="text-xs text-stone-500 mt-1">Direct control of stock, unit packaging pricing, and instant in/out bulk toggles.</p>
                 </div>
                 <div className="flex gap-2">
@@ -764,7 +764,7 @@ export default function AdminDashboard({
           {activeTab === 'orders' && (
             <div className="bg-stone-900 border border-stone-800 rounded-xl p-6 shadow-xl space-y-6 animate-fadeIn">
               <div>
-                <h3 className="text-xl font-serif font-semibold">Logistics & Delivery Control Center</h3>
+                <h3 className="text-xl font-heading font-bold">Logistics & Delivery Control Center</h3>
                 <p className="text-xs text-stone-500 mt-1">Assign logistics drivers, configure delivery zones, and trigger real-time shipment progress status.</p>
               </div>
 
@@ -910,7 +910,7 @@ export default function AdminDashboard({
           {activeTab === 'customers' && (
             <div className="bg-stone-900 border border-stone-800 rounded-xl p-6 shadow-xl space-y-6 animate-fadeIn">
               <div>
-                <h3 className="text-xl font-serif font-semibold">Registered Customer Directory</h3>
+                <h3 className="text-xl font-heading font-bold">Registered Customer Directory</h3>
                 <p className="text-xs text-stone-500 mt-1">Deep analysis of customer histories, spent logs, and customer relations communications logs.</p>
               </div>
 
@@ -940,7 +940,7 @@ export default function AdminDashboard({
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center font-serif font-bold text-amber-500">
+                        <div className="w-10 h-10 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center font-heading font-bold text-amber-500">
                           {c.name.split(' ').map(n => n[0]).join('')}
                         </div>
                         <div>
@@ -967,7 +967,7 @@ export default function AdminDashboard({
                       <div className="space-y-4">
                         <div className="border-b border-stone-800 pb-3">
                           <span className="text-[10px] text-stone-500 font-mono tracking-wider uppercase block">Shopper Profile</span>
-                          <h4 className="text-base font-serif font-semibold mt-1">{c.name}</h4>
+                          <h4 className="text-base font-heading font-bold mt-1">{c.name}</h4>
                           <p className="text-xs text-stone-400 font-mono mt-1">{c.phone}</p>
                           <p className="text-xs text-stone-500 font-mono mt-0.5">Joined: {c.dateJoined}</p>
                         </div>
@@ -991,7 +991,7 @@ export default function AdminDashboard({
                           />
                           <button
                             onClick={() => triggerContactLog(c.id)}
-                            className="bg-amber-500 hover:bg-amber-400 text-stone-950 font-serif font-bold text-xs px-3 py-1.5 rounded w-full flex items-center justify-center gap-1.5 transition"
+                            className="bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-bold text-xs px-3 py-1.5 rounded w-full flex items-center justify-center gap-1.5 transition"
                           >
                             <Send className="w-3.5 h-3.5" />
                             <span>Commit CRM Message Log</span>
@@ -1019,7 +1019,7 @@ export default function AdminDashboard({
           {activeTab === 'marketing' && (
             <div className="bg-stone-900 border border-stone-800 rounded-xl p-6 shadow-xl space-y-6 animate-fadeIn">
               <div>
-                <h3 className="text-xl font-serif font-semibold">Marketing & Campaigns CMS</h3>
+                <h3 className="text-xl font-heading font-bold">Marketing & Campaigns CMS</h3>
                 <p className="text-xs text-stone-500 mt-1">Control active promo banners, toggle global flash sales, adjust countdown times, and toggle floating promo popups.</p>
               </div>
 
@@ -1028,7 +1028,7 @@ export default function AdminDashboard({
                 {/* Banner Hero Settings */}
                 <div className="bg-stone-950 border border-stone-800 p-5 rounded-xl space-y-4">
                   <div className="flex items-center justify-between border-b border-stone-800 pb-2">
-                    <h4 className="text-sm font-serif font-semibold">Hero Banner Management</h4>
+                    <h4 className="text-sm font-heading font-bold">Hero Banner Management</h4>
                     <button
                       onClick={() => setBannerSettings(p => ({ ...p, active: !p.active }))}
                       className={`text-xs px-3 py-1 rounded font-mono transition ${
@@ -1064,7 +1064,7 @@ export default function AdminDashboard({
                 {/* Promotional popup */}
                 <div className="bg-stone-950 border border-stone-800 p-5 rounded-xl space-y-4">
                   <div className="flex items-center justify-between border-b border-stone-800 pb-2">
-                    <h4 className="text-sm font-serif font-semibold">Promotional Campaign Popups</h4>
+                    <h4 className="text-sm font-heading font-bold">Promotional Campaign Popups</h4>
                     <button
                       onClick={() => setPromoPopup(p => ({ ...p, active: !p.active }))}
                       className={`text-xs px-3 py-1 rounded font-mono transition ${
@@ -1090,7 +1090,7 @@ export default function AdminDashboard({
                 {/* Flash Sale Engine timer control */}
                 <div className="bg-stone-950 border border-stone-800 p-5 rounded-xl space-y-4 md:col-span-2">
                   <div className="flex items-center justify-between border-b border-stone-800 pb-2">
-                    <h4 className="text-sm font-serif font-semibold">Flash Sale Urgency Engine</h4>
+                    <h4 className="text-sm font-heading font-bold">Flash Sale Urgency Engine</h4>
                     <button
                       onClick={() => setFlashSaleActive(!flashSaleActive)}
                       className={`text-xs px-3 py-1 rounded font-mono transition ${

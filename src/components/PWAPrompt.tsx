@@ -47,7 +47,7 @@ export default function PWAPrompt({ isOffline, setIsOffline }: PWAPromptProps) {
           </div>
           <button
             onClick={() => setIsOffline(false)}
-            className="text-xs bg-stone-950 text-white px-3 py-1 font-serif rounded hover:bg-stone-800 transition"
+            className="text-xs bg-stone-950 text-white px-3 py-1 font-heading font-semibold rounded hover:bg-stone-800 transition"
           >
             Go Online
           </button>
@@ -62,7 +62,7 @@ export default function PWAPrompt({ isOffline, setIsOffline }: PWAPromptProps) {
               <Smartphone className="w-6 h-6 text-emerald-400" />
             </div>
             <div className="flex-1">
-              <h4 className="font-serif font-semibold text-sm">Install Nouveau App</h4>
+              <h4 className="font-heading font-semibold text-sm">Install Nouveau App</h4>
               <p className="text-xs text-stone-400 mt-1">
                 Install Nouveau Supermarket on your device for lightning-fast speeds, offline browsing, and instant deals.
               </p>
@@ -84,7 +84,7 @@ export default function PWAPrompt({ isOffline, setIsOffline }: PWAPromptProps) {
             </button>
             <button
               onClick={handleInstall}
-              className="bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-serif font-semibold px-4 py-1.5 rounded flex items-center gap-1.5 transition"
+              className="bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-heading font-semibold px-4 py-1.5 rounded flex items-center gap-1.5 transition"
             >
               <Download className="w-3.5 h-3.5" />
               Install Native
@@ -100,7 +100,7 @@ export default function PWAPrompt({ isOffline, setIsOffline }: PWAPromptProps) {
             <Check className="w-4 h-4" />
           </div>
           <div>
-            <p className="font-serif font-semibold text-sm">Successfully Installed!</p>
+            <p className="font-heading font-semibold text-sm">Successfully Installed!</p>
             <p className="text-xs text-emerald-100">Nouveau is now accessible from your Home Screen.</p>
           </div>
         </div>

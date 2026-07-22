@@ -41,11 +41,47 @@ export default function App() {
 
   const [promoPopup, setPromoPopup] = useState(() => {
     const saved = localStorage.getItem('nouveau-promo-popup');
-    return saved ? JSON.parse(saved) : {
-      text: "Nouveau Grocery Club Privilege: Receive complimentary, temperature-insulated cold-box delivery across Victoria Island, Lekki & Ikoyi for all order baskets exceeding ₦15,000.00 today.",
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.text && (parsed.text.includes('Victoria Island') || parsed.text.includes('Lagos'))) {
+        parsed.text = "Nouveau Grocery Club Privilege: Receive complimentary, temperature-insulated cold-box delivery across Bodija, Jericho & Oluyole Estate for all order baskets exceeding ₦15,000.00 today.";
+      }
+      return parsed;
+    }
+    return {
+      text: "Nouveau Grocery Club Privilege: Receive complimentary, temperature-insulated cold-box delivery across Bodija, Jericho & Oluyole Estate for all order baskets exceeding ₦15,000.00 today.",
       active: true
     };
   });
+
+  // Auto-migration effect for local storage to guarantee Ibadan & Ayo David
+  useEffect(() => {
+    // Migrate customer references if stale
+    setCustomers(prev => prev.map(c => {
+      if (c.id === 'c1' || c.name === 'Richard Adewoye') {
+        return { ...c, name: 'Ayo David', email: 'ayodavid@gmail.com' };
+      }
+      return c;
+    }));
+
+    // Migrate orders if stale
+    setOrders(prev => prev.map(o => {
+      let updatedZone = o.deliveryZone;
+      if (updatedZone.includes('Victoria Island') || updatedZone.includes('Lagos')) {
+        updatedZone = 'Bodija (Ibadan, Oyo State)';
+      }
+      let updatedAddress = { ...o.address };
+      if (updatedAddress.state === 'Lagos State' || updatedAddress.city.includes('Victoria') || updatedAddress.city.includes('Lekki')) {
+        updatedAddress = {
+          ...updatedAddress,
+          fullName: updatedAddress.fullName === 'Richard Adewoye' ? 'Ayo David' : updatedAddress.fullName,
+          city: updatedAddress.city.includes('Lekki') ? 'Jericho, Ibadan' : 'Bodija, Ibadan',
+          state: 'Oyo State'
+        };
+      }
+      return { ...o, deliveryZone: updatedZone, address: updatedAddress };
+    }));
+  }, []);
 
   const [flashSaleTimer, setFlashSaleTimer] = useState<number>(() => {
     const saved = localStorage.getItem('nouveau-flash-sale-timer');
